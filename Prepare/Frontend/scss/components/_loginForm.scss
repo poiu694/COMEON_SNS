@@ -1,0 +1,27 @@
+.login-form-container {
+  padding: 1rem;
+  background-color: #e5e5e5;
+  min-width: 10rem;
+
+  .user-form {
+    display: flex;
+    justify-content: space-between;
+    label {
+      min-width: 46px;
+    }
+  }
+  p {
+    text-align: center;
+    @include font-default(500, 1rem);
+  }
+
+  .login-form-button {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+
+    .ant-form-item {
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.contents-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @include mobile() {
+    flex-direction: column;
+  }
+
+  .left-side-container,
+  .right-side-container {
+    flex-grow: 1;
+  }
+
+  .main-article {
+    flex-grow: 100;
+    height: 100%;
+  }
+
+  .left-side-container,
+  .right-side-container,
+  .main-article {
+    padding: 1rem;
+  }
+}
