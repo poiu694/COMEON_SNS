@@ -4,7 +4,7 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import useInput from "../Hooks/useInput";
 
-import { loginAction } from "../reducers";
+import { loginAction } from "../Store/reducers";
 import { useDispatch } from "react-redux";
 
 const LoginForm = ({ setIsLoggedIn }) => {
