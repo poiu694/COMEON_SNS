@@ -1,0 +1,15 @@
+// default scss
+@import "./base/base";
+@import "./base/variable";
+@import "./base/mixin";
+
+// component
+@import "./components/nicknameEditForm";
+@import "./components/followList";
+
+.profile-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
