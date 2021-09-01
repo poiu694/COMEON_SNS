@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { Form, Input, Button } from "antd";
 import Link from "next/link";
-import PropTypes from "prop-types";
 import useInput from "../Hooks/useInput";
 
-import { loginAction } from "../Store/reducers";
+import { loginAction } from "../Store/reducers/user";
 import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
