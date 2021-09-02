@@ -1,0 +1,14 @@
+.post-form-container {
+  margin-bottom: 1rem;
+
+  .file-container {
+    margin-top: 0.2rem;
+  }
+
+  .preview-container {
+    display: inline-block;
+    img {
+      max-width: 50%;
+    }
+  }
+}

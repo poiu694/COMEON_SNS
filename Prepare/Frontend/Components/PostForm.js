@@ -7,8 +7,8 @@ const PreviewImagesForm = ({ imagePaths }) => {
   return (
     <div className="preview-container">
       {imagePaths.map((y) => {
-        <div key={y} style={{ display: 'inline-block' }}>
-          <img src={y} style={{width: '200px'}} alt={y} />
+        <div key={y} className="preview-images">
+          <img src={y} alt={y} />
         </div>
       })}
     </div>
@@ -25,7 +25,7 @@ const FileForm = ({ imagePaths, imageInput, setText }) => {
   };
 
   return (
-    <div>
+    <div className="file-container">
       <input type="file" multiple hidden ref={imageInput} />
       <Button onClick={handleImageButton}>이미지 업로드</Button>
       <Button
@@ -52,9 +52,9 @@ const PostForm = () => {
     dispatch(addPost);
   }, []);
 
-  const handleChangeText = (e) => {
+  const handleChangeText = useCallback((e) => {
     setText(e.target.value);
-  };
+  }, []);
 
   return (
     <Form
@@ -63,6 +63,7 @@ const PostForm = () => {
       onFinish={handleFinish}
     >
       <Input.TextArea
+        className="text-form"
         value={text}
         onChange={handleChangeText}
         maxLength={140}

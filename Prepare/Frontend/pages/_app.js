@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import "../scss/layout.scss";
 import "../scss/profile.scss";
 import "../scss/signup.scss";
+import "../scss/post.scss";
 
 const App = ({ Component }) => {
   return (
