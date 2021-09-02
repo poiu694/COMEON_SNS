@@ -1,3 +1,7 @@
 .post-card-container {
   margin-bottom: 1rem;
+
+  ul li span::selection {
+    background-color: transparent;
+  }
 }

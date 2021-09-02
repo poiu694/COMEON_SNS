@@ -13,15 +13,16 @@ const UserProfile = () => {
 
   return (
     <Card
+      className="user-profile-container"
       actions={[
-        <div key="twit">
-          Posts <br /> 0{" "}
+        <div key="twit" className="description">
+          Posts <br /> 0
         </div>,
-        <div key="followings">
-          Following <br /> 0{" "}
+        <div key="followings" className="description">
+          Following <br /> 0
         </div>,
-        <div key="followers">
-          Follower <br /> 0{" "}
+        <div key="followers" className="description">
+          Follower <br /> 0
         </div>,
       ]}
     >
