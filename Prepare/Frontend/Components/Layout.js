@@ -35,7 +35,7 @@ const DirectorProfile = () => {
           <Avatar src="https://avatars.githubusercontent.com/u/43488305?s=60&v=4" />
         }
         title="Lee Sang Min"
-        description="Next + React + Redux Project"
+        description="Next + Node + Redux Project"
       />
     </Card>
   );
