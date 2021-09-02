@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Avatar, Button, Card, Popover } from "antd";
+import { Avatar, Button, Card, List, Popover } from "antd";
 import {
   EllipsisOutlined,
   RetweetOutlined,
@@ -8,6 +8,8 @@ import {
   HeartTwoTone,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import CommentCard from "./CommentCard";
+import CommentForm from "./CommentForm";
 
 const Content = ({ post }) => {
   return (
@@ -21,7 +23,7 @@ const Content = ({ post }) => {
 
 const PostImages = ({ images }) => {
   return (
-    <div> 구현중 </div>
+    <div> 구현중... </div>
   );
 };
 
@@ -73,11 +75,10 @@ const PostCard = ({ post }) => {
         <Content post={post} />
       </Card>
       { commentFormOpend && 
-          <div>
-            댓글
-          </div>}
-      {/* // <CommentForm />
-      // <Comments /> */}
+          <>
+            <CommentForm post={post} />
+            <CommentCard comments={post.Comments} />
+          </>}
     </section>
   );
 };
