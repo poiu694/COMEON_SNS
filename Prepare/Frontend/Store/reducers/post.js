@@ -9,7 +9,7 @@ const initialState = {
         nickname: "Lee",
       },
       content: "첫 번째 게시글 #해시태그 #익스프레스",
-      Iamges: [
+      Images: [
         {
           src: "https://avatars.githubusercontent.com/u/43488305?s=60&v=4",
         },
