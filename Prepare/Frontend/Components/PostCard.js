@@ -8,8 +8,10 @@ import {
   HeartTwoTone,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
+import PostImages from "./PostImages";
 
 const Content = ({ post }) => {
   return (
@@ -21,12 +23,6 @@ const Content = ({ post }) => {
   );
 };
 
-const PostImages = ({ images }) => {
-  return (
-    <div> 구현중... </div>
-  );
-};
-
 const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [commentFormOpend, setCommentFormOpend] = useState(false);
@@ -35,11 +31,11 @@ const PostCard = ({ post }) => {
 
   const handleToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
-  }, [liked]);
+  }, []);
 
   const handleToggleComment = useCallback(() => {
     setCommentFormOpend((prev) => !prev);
-  }, [commentFormOpend]);
+  }, []);
 
   return (
     <section className="post-card-container">
@@ -47,7 +43,7 @@ const PostCard = ({ post }) => {
         cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <RetweetOutlined key="retweet" />,
-          liked ? (
+          !liked ? (
             <HeartOutlined key="heart" onClick={handleToggleLike} />
           ) : (
             <HeartTwoTone twoToneColor="#eb2f96" key="color-heart" onClick={handleToggleLike}  />
