@@ -1,0 +1,68 @@
+.images-zoom-container {
+  position: fixed;
+  z-index: 3000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  header {
+    height: 2.5rem;
+    background: #e5e5e5;
+    position: relative;
+    padding: 0;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #333;
+      line-height: 2.5rem;
+    }
+
+    button {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.3rem;
+      cursor: pointer;
+    }
+  }
+
+  .slick-container {
+    height: calc(95% - 44px);
+    background: #090909;
+    .slick-image {
+      padding: 2rem;
+      text-align: center;
+
+      img {
+        margin: 0 auto;
+        max-height: 750px;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+
+    .description {
+      width: 5rem;
+      height: 2rem;
+      line-height: 2rem;
+      border-radius: 15px;
+      background: #313131;
+      display: inline-block;
+      text-align: center;
+
+      color: #f5f5f5;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.slick-slide {
+  display: inline-block;
+}
+.ant-card-cover {
+  transform: none;
+}
