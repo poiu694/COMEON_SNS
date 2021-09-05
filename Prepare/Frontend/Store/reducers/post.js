@@ -1,6 +1,6 @@
 import { ADD_POST } from "./type";
 
-const initialState = {
+export const initialState = {
   mainPosts: [
     {
       id: 1,
@@ -8,30 +8,30 @@ const initialState = {
         id: 1,
         nickname: "Lee",
       },
-      content: "첫 번째 게시글 #해시태그 #익스프레스",
+      content: "첫 번째 게시글 #해시태그 #안녕 ##이런것도?#헤헤",
       Images: [
         {
-          src: "https://avatars.githubusercontent.com/u/43488305?s=60&v=4",
+          src: "https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726",
         },
         {
-          src: "https://avatars.githubusercontent.com/u/43488305?s=60&v=4",
+          src: "https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg",
         },
         {
-          src: "https://avatars.githubusercontent.com/u/43488305?s=60&v=4",
+          src: "https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg",
         },
       ],
       Comments: [
         {
           User: {
-            nickname: "han",
+            nickname: "Han",
           },
-          content: "우와 이게 뭐에요 ?",
+          content: "우와 이게 뭐에요 ?!",
         },
         {
           User: {
-            nickname: "hana",
+            nickname: "HANA",
           },
-          content: "멋있어요 ~!!",
+          content: "얼른 보고 싶어요~",
         },
       ],
     },
