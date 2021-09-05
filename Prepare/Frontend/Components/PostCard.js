@@ -12,13 +12,14 @@ import { useSelector } from "react-redux";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import PostImages from "./PostImages";
+import PostCardContent from "./PostCardContent";
 
 const Content = ({ post }) => {
   return (
     <Card.Meta 
       avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
       title={post.User.nickname}
-      description={post.content}
+      description={<PostCardContent postData={post.content} />}
     />
   );
 };
