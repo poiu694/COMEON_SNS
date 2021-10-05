@@ -3,17 +3,18 @@ import { Form, Input, Button } from "antd";
 import Link from "next/link";
 import useInput from "../Hooks/useInput";
 
-import { loginAction } from "../Store/reducers/user";
-import { useDispatch } from "react-redux";
+import { loginRequestAction } from "../Store/reducers/user";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const { isLoggingIn } = useSelector((state) => state.user);
 
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
 
   const handleFinish = useCallback(() => {
-    dispatch(loginAction({id, password}));
+    dispatch(loginRequestAction({id, password}));
   }, [id, password]);
 
   const handleFailed = useCallback(() => {
@@ -46,7 +47,7 @@ const LoginForm = () => {
 
       <footer className="login-form-button">
         <Form.Item>
-          <Button htmlType="submit">Submit</Button>
+          <Button htmlType="submit" loading={isLoggingIn}>Submit</Button>
         </Form.Item>
         <Form.Item>
           <Link href="/signup">
