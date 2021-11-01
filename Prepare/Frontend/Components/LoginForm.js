@@ -3,18 +3,62 @@ import { Form, Input, Button } from "antd";
 import Link from "next/link";
 import useInput from "../Hooks/useInput";
 
-import { loginRequestAction } from "../Store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
+import { LOG_IN_REQUEST } from "../Store/type";
+
+const LoginFooter = ({ logInLoading }) => {
+  return (
+    <footer className="login-form-button">
+      <Form.Item>
+        <Button htmlType="submit" loading={logInLoading}>
+          Submit
+        </Button>
+      </Form.Item>
+      <Form.Item>
+        <Link href="/signup">
+          <a>회원가입</a>
+        </Link>
+      </Form.Item>
+    </footer>
+  );
+};
+
+const LoginHeader = ({ onChangeId, onChangePassword }) => {
+  return (
+    <>
+      <p> Login to My Site ! </p>
+      <label htmlFor="user-id">아이디</label>
+      <Input
+        label="ID"
+        name="userID"
+        className="user-form"
+        onChange={onChangeId}
+        required
+      />
+      <label htmlFor="user-password">비밀번호</label>
+      <Input
+        label="PW"
+        name="userPW"
+        className="user-form"
+        onChange={onChangePassword}
+        required
+      />
+    </>
+  );
+};
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { isLoggingIn } = useSelector((state) => state.user);
+  const { logInLoading } = useSelector(state => state.user);
 
   const [id, onChangeId] = useInput("");
   const [password, onChangePassword] = useInput("");
 
   const handleFinish = useCallback(() => {
-    dispatch(loginRequestAction({id, password}));
+    dispatch({
+      type: LOG_IN_REQUEST,
+      data: { id, password },
+    });
   }, [id, password]);
 
   const handleFailed = useCallback(() => {
@@ -22,39 +66,16 @@ const LoginForm = () => {
   }, []);
 
   return (
-    <Form onFinish={handleFinish} onFinishFailed={handleFailed} className="login-form-container">
-      <p> Login to My Site ! </p>
-      <Form.Item
-        label="ID"
-        name="userID"
-        className="user-form"
-        rules={[{ required: true, message: "Input Your Name !" }]}
-      >
-        <Input name="user-id" value={id} onChange={onChangeId} required />
-      </Form.Item>
-      <Form.Item
-        label="PW"
-        name="userPW"
-        className="user-form"
-        rules={[{ required: true, message: "Input Your Password !" }]}
-      >
-        <Input.Password
-          name="user-password"
-          value={password}
-          onChange={onChangePassword}
-        />
-      </Form.Item>
-
-      <footer className="login-form-button">
-        <Form.Item>
-          <Button htmlType="submit" loading={isLoggingIn}>Submit</Button>
-        </Form.Item>
-        <Form.Item>
-          <Link href="/signup">
-            <a>회원가입</a>
-          </Link>
-        </Form.Item>
-      </footer>
+    <Form
+      onFinish={handleFinish}
+      onFinishFailed={handleFailed}
+      className="login-form-container"
+    >
+      <LoginHeader
+        onChangeId={onChangeId}
+        onChangePassword={onChangePassword}
+      />
+      <LoginFooter logInLoading={logInLoading} />
     </Form>
   );
 };

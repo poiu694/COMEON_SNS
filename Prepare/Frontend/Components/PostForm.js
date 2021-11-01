@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input } from "antd";
 import { addPost } from "../Store/reducers/post";
+import { ADD_POST_REQUEST } from "../Store/type";
 
 const PreviewImagesForm = ({ imagePaths }) => {
   return (
@@ -15,14 +16,19 @@ const PreviewImagesForm = ({ imagePaths }) => {
   );
 }
 
-const FileForm = ({ imagePaths, imageInput, setText }) => {
+const FileForm = ({ imagePaths, imageInput, setText, text }) => {
+  const dispatch = useDispatch();
+
   const handleImageButton = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
 
-  const handleSubmit = () => {
-    setText("");
-  };
+  const handleSubmit = () => useCallback(() => {
+    dispatch({
+      type: ADD_POST_REQUEST,
+      data: text,
+    })
+  }, [text]);
 
   return (
     <div className="file-container">
@@ -34,13 +40,17 @@ const FileForm = ({ imagePaths, imageInput, setText }) => {
         style={{ float: "right" }}
         onClick={handleSubmit}
       >
-        짹쨱
+        짹짹
       </Button>
       <PreviewImagesForm imagePaths={imagePaths} />
     </div>
   );
 };
 
+/**
+ * main PostForm
+ * @returns Post Form container
+ */
 const PostForm = () => {
   const [text, setText] = useState("");
   const imageInput = useRef();
@@ -73,6 +83,7 @@ const PostForm = () => {
         imagePaths={imagePaths}
         imageInput={imageInput}
         setText={setText}
+        text={text}
       />
     </Form>
   );

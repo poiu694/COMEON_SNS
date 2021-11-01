@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { Input, Menu, Row, Col, Card, Avatar } from "antd";
-
 import {
   GithubOutlined,
   GoogleOutlined,
@@ -41,28 +39,28 @@ const DirectorProfile = () => {
   );
 }
 
-const Navigation = ({ isLoggedIn }) => {
+const Navigation = ({ me }) => {
   return (
-    <Menu mode="horizontal" className="top-nav-container">
-      <Menu.Item id="logo">
+    <Menu mode="horizontal" className="top-nav-container" key="nav-container">
+      <Menu.Item id="logo" key="home">
         <Link href="/">
           <a>Lee's</a>
         </Link>
       </Menu.Item>
 
       <div className="nav-right">
-        <Menu.Item id="top-search-bar">
+        <Menu.Item id="top-search-bar" key="search">
           <Search className="nav-search" placeholder="Search" allowClear />
         </Menu.Item>
 
-        {isLoggedIn ? (
-          <Menu.Item>
+        {me ? (
+          <Menu.Item key="profile">
             <Link href="/profile">
               <a> Profile </a>
             </Link>
           </Menu.Item>
         ) : (
-          <Menu.Item>
+          <Menu.Item key="signup">
             <Link href="/signup">
               <a> Sign Up </a>
             </Link>
@@ -70,7 +68,7 @@ const Navigation = ({ isLoggedIn }) => {
         )}
       </div>
 
-      <Menu.Item>
+      <Menu.Item key="2profile2">
         <Link href="/profile">
           <a> Profile </a>
         </Link>
@@ -79,20 +77,13 @@ const Navigation = ({ isLoggedIn }) => {
   );
 };
 
-const Contents = ({ children, isLoggedIn }) => {
-
+const Contents = ({ children, me }) => {
   return (
     <main className="contents-container">
       <aside className="left-side-container">
-        {isLoggedIn ? (
-          <UserProfle />
-        ) : ( 
-          <LoginForm />
-        )}
+        {me ? <UserProfle /> : <LoginForm />}
       </aside>
-      <article className="main-article">
-        {children}
-      </article>
+      <article className="main-article">{children}</article>
       <aside className="right-side-container">
         <DirectorProfile />
       </aside>
@@ -101,21 +92,14 @@ const Contents = ({ children, isLoggedIn }) => {
 };
 
 const Layout = ({ children }) => {
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const me = useSelector(state => state.user.me);
 
   return (
     <div className="layout-container">
-      <Navigation isLoggedIn={isLoggedIn} />
-      <Contents
-        children={children}
-        isLoggedIn={isLoggedIn}
-      />
+      <Navigation me={me} />
+      <Contents children={children} me={me} />
     </div>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

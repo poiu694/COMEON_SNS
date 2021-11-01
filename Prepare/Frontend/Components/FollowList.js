@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, Card, List } from "antd";
 import { StopOutlined } from '@ant-design/icons';
 
@@ -24,11 +23,6 @@ const FollowList = ({ header, data }) => {
       />
     </div>
   )
-};
-
-FollowList.propTypes = {
-  header: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
 };
 
 export default FollowList;

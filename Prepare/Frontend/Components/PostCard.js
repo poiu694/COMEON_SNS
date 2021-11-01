@@ -7,14 +7,15 @@ import {
   MessageOutlined,
   HeartTwoTone,
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import PostImages from "./PostImages";
 import PostCardContent from "./PostCardContent";
+import { REMOVE_POST_REQUEST } from "../Store/type";
 
-const Content = ({ post }) => {
+const CardContent = ({ post }) => {
   return (
     <Card.Meta 
       avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
@@ -24,11 +25,20 @@ const Content = ({ post }) => {
   );
 };
 
+/**
+ * main PostCard
+ * @param {post} Object data
+ * @returns PostCard Container
+ */
 const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [commentFormOpend, setCommentFormOpend] = useState(false);
 
-  const id = useSelector((state) => state.user.me?.id);
+  const { removePostLoading } = useSelector((state) => state.post);
+  const me = useSelector((state) => state.user.me); 
+  const id = me && me.id;
+
+  const dispatch = useDispatch();
 
   const handleToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
@@ -36,6 +46,13 @@ const PostCard = ({ post }) => {
 
   const handleToggleComment = useCallback(() => {
     setCommentFormOpend((prev) => !prev);
+  }, []);
+
+  const handleRemovePost = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    });
   }, []);
 
   return (
@@ -47,14 +64,18 @@ const PostCard = ({ post }) => {
           !liked ? (
             <HeartOutlined key="heart" onClick={handleToggleLike} />
           ) : (
-            <HeartTwoTone twoToneColor="#eb2f96" key="color-heart" onClick={handleToggleLike}  />
+            <HeartTwoTone
+              twoToneColor="#eb2f96"
+              key="color-heart"
+              onClick={handleToggleLike}
+            />
           ),
           <MessageOutlined key="comment" onClick={handleToggleComment} />,
           <Popover
             key="more"
             content={
               <Button.Group>
-                {id && post.User.id === id ? (
+                {id && post.UserId === id ? (
                   <>
                     <Button>수정</Button>
                     <Button type="danger">삭제</Button>
@@ -69,13 +90,14 @@ const PostCard = ({ post }) => {
           </Popover>,
         ]}
       >
-        <Content post={post} />
+        <CardContent post={post} />
       </Card>
-      { commentFormOpend && 
-          <>
-            <CommentForm post={post} />
-            <CommentCard comments={post.Comments} />
-          </>}
+      {commentFormOpend && (
+        <>
+          <CommentForm post={post} />
+          <CommentCard comments={post.Comments} />
+        </>
+      )}
     </section>
   );
 };

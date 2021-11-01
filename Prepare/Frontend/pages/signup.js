@@ -6,6 +6,8 @@ import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
 import useInput from "../Hooks/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { SIGN_UP_REQUEST } from "../Store/type";
 
 const TextInput = ({ value }) => {
   return <div>{value}</div>;
@@ -25,7 +27,10 @@ const Signup = () => {
   const [nickname, handleChangeNickname] = useInput("");
   const [password, handleChangePassword] = useInput("");
 
-  // const 
+  const dispatch = useDispatch();
+
+  const me = useSelector((state) => state.user.me);
+  const isSigningUp = useSelector((state) => state.user.isSigningUp);
 
   const handleSubmit = useCallback(() => {
     if (password !== passwordCheck) {
@@ -34,7 +39,14 @@ const Signup = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log(id, password);
+    return dispatch({
+      type: SIGN_UP_REQUEST,
+      data: {
+        id,
+        password,
+        nickname,
+      },
+    });
   }, [password, passwordCheck, term]);
 
   const handleChangePasswordCheck = useCallback(
@@ -98,7 +110,6 @@ const Signup = () => {
         </div>
         <div>
           <Checkbox name="user-term" checked={term} onChange={handleChangeTerm}>
-            {" "}
             동의합니다.
           </Checkbox>
           {termError && (
@@ -106,7 +117,7 @@ const Signup = () => {
           )}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>
             가입하기
           </Button>
         </div>
