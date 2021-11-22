@@ -1,5 +1,6 @@
 import produce from "../../util/produce";
 import { initialUserState } from "../initial";
+import { dummyUser } from "./dummyData";
 import {
   FOLLOW_FAILURE,
   FOLLOW_REQUEST,
@@ -22,23 +23,6 @@ import {
   ADD_POST_TO_ME,
   REMOVE_POST_OF_ME,
 } from "../type";
-
-const dummyUser = data => ({
-  ...data,
-  nickname: "Lee",
-  id: 1,
-  Posts: [{ id: 1 }],
-  Followings: [
-    { nickname: "Sangmin" },
-    { nickname: "Chanho Lee" },
-    { nickname: "neue zeal" },
-  ],
-  Followers: [
-    { nickname: "Sangmin" },
-    { nickname: "Chanho Lee" },
-    { nickname: "neue zeal" },
-  ],
-});
 
 export const loginRequestAction = data => ({
   type: LOG_IN_REQUEST,
@@ -139,23 +123,9 @@ const reducer = (state = initialUserState, action) =>
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data });
         break;
-      // return {
-      //   ...state,
-      //   me: {
-      //     ...state.me,
-      //     Posts: [{ id: action.data }, ...state.me.Posts],
-      //   },
-      // };
       case REMOVE_POST_OF_ME:
         draft.me.Posts = draft.me.Posts.filter(v => v.id !== action.data);
         break;
-      // return {
-      //   ...state,
-      //   me: {
-      //     ...state.me,
-      //     Posts: state.me.Posts.filter((v) => v.id !== action.data),
-      //   },
-      // };
       default:
         break;
     }

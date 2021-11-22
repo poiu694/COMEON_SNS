@@ -7,7 +7,7 @@ import { CHANGE_NICKNAME_REQUEST } from "../Store/type";
 
 const NicknameEditForm = () => {
   const me = useSelector(state => state.user.me);
-  const [id, onChangeId] = useInput(me?.nickname || "");
+  const [nickname, onChangeNickname] = useInput(me?.nickname || "");
   const dispatch = useDispatch();
 
   const style = useMemo(() => ({
@@ -31,8 +31,8 @@ const NicknameEditForm = () => {
     >
       <h3> Do you want to change Nickname? </h3>
       <Input.Search
-        value={id}
-        onChange={onChangeId}
+        value={nickname}
+        onChange={onChangeNickname}
         className="nickname-change"
         addonBefore="Nickname"
         enterButton="Change"

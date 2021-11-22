@@ -1,6 +1,5 @@
-import shortId from "shortid";
-import faker from "faker";
 import { initialPostState } from "../initial";
+import { dummyComment, dummyPost } from "./dummyData";
 import produce from "../../util/produce";
 import {
   ADD_COMMENT_FAILURE,
@@ -17,32 +16,6 @@ import {
   REMOVE_POST_SUCCESS,
 } from "../type";
 
-export const generateDummyPost = (number) =>
-  Array(number)
-    .fill()
-    .map(() => ({
-      id: shortId.generate(),
-      User: {
-        id: shortId.generate(),
-        nickname: faker.name.findName(),
-      },
-      content: faker.lorem.paragraph(),
-      Images: [
-        {
-          src: faker.image.image(),
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            id: shortId.generate(),
-            nickname: faker.name.findName(),
-          },
-          content: faker.lorem.sentence(),
-        },
-      ],
-    }));
-
 export const addPost = data => ({
   type: ADD_POST_REQUEST,
   data,
@@ -53,25 +26,7 @@ export const addComment = data => ({
   data,
 });
 
-const dummyPost = data => ({
-  id: data.id,
-  content: data.content,
-  User: {
-    id: 1,
-    nickname: "Lee Sangmin",
-  },
-  Images: [],
-  Comments: [],
-});
 
-const dummyComment = data => ({
-  id: shortId.generate(),
-  content: data,
-  User: {
-    id: 1,
-    nickname: "Lee Sangmin",
-  },
-});
 // 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수(불변성은 지키면서)
 const reducer = (state = initialPostState, action) =>
   produce(state, draft => {
@@ -130,17 +85,6 @@ const reducer = (state = initialPostState, action) =>
         draft.addCommentLoading = false;
         draft.addCommentDone = true;
         break;
-        // const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
-        // const post = { ...state.mainPosts[postIndex] };
-        // post.Comments = [dummyComment(action.data.content), ...post.Comments];
-        // const mainPosts = [...state.mainPosts];
-        // mainPosts[postIndex] = post;
-        // return {
-        //   ...state,
-        //   mainPosts,
-        //   addCommentLoading: false,
-        //   addCommentDone: true,
-        // };
       }
       case ADD_COMMENT_FAILURE:
         draft.addCommentLoading = false;

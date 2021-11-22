@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Form, Input, Button } from "antd";
 import useInput from "../Hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,13 +20,18 @@ const CommentForm = ({ post }) => {
         userId: id,
         postId: post.id,
       }
-    })
-    setCommentText("");
+    });
   }, []);
 
   const handleChangeCommentText = useCallback((e) => {
     setCommentText(e.target.value);
   });
+
+  useEffect(() => {
+    if (addCommentDone) {
+      setCommentText('');
+    }
+  }, [addCommentDone]);
 
   return (
     <Form className="comment-form-container" onFinish={handleSubmitComment}>
