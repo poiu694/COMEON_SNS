@@ -5,40 +5,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_COMMENT_REQUEST } from "../Store/type";
 
 const CommentForm = ({ post }) => {
-  const [commentText, setCommentText] = useState('');
+  const [commentText, handleChangeCommentText, setCommentText] = useInput("");
 
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.user.me?.id);
-  const addCommentDone = useSelector((state) => state.post.addCommentDone);
+  const id = useSelector(state => state.user.me?.id);
+  const { addCommentDone, addCommentLoading } = useSelector(
+    state => state.post,
+  );
 
   const handleSubmitComment = useCallback(() => {
     dispatch({
       type: ADD_COMMENT_REQUEST,
       data: {
-        content : commentText,
+        content: commentText,
         userId: id,
         postId: post.id,
-      }
+      },
     });
   }, []);
 
-  const handleChangeCommentText = useCallback((e) => {
-    setCommentText(e.target.value);
-  });
-
   useEffect(() => {
     if (addCommentDone) {
-      setCommentText('');
+      setCommentText("");
     }
   }, [addCommentDone]);
 
   return (
     <Form className="comment-form-container" onFinish={handleSubmitComment}>
-      <Input.TextArea value={commentText} onChange={handleChangeCommentText} rows={4} />
-      <Button type="primary" htmlType="submit"> 짹짹 </Button>
+      <Input.TextArea
+        value={commentText}
+        onChange={handleChangeCommentText}
+        rows={4}
+      />
+      <Button type="primary" htmlType="submit" loading={addCommentLoading}>
+        댓글 달기
+      </Button>
     </Form>
-  )
+  );
 };
 
 export default CommentForm;

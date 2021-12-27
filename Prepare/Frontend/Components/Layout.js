@@ -1,15 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Link from "next/link";
-import { Input, Menu, Row, Col, Card, Avatar } from "antd";
+import { Input, Menu, Card, Avatar } from "antd";
 import {
   GithubOutlined,
   GoogleOutlined,
   SlackOutlined,
 } from "@ant-design/icons";
 
-import UserProfle from "../Components/UserProfile";
-import LoginForm from "../Components/LoginForm";
+import UserProfle from "./UserProfile";
+import LoginForm from "./LoginForm";
 
 const { Search } = Input;
 
@@ -25,7 +25,7 @@ const DirectorProfile = () => {
       actions={[
         <GithubOutlined key="github" />,
         <GoogleOutlined key="google" />,
-        <SlackOutlined key="slack"/>,
+        <SlackOutlined key="slack" />,
       ]}
     >
       <Card.Meta
@@ -37,7 +37,7 @@ const DirectorProfile = () => {
       />
     </Card>
   );
-}
+};
 
 const Navigation = ({ me }) => {
   return (
@@ -92,7 +92,7 @@ const Contents = ({ children, me }) => {
 };
 
 const Layout = ({ children }) => {
-  const me = useSelector(state => state.user.me);
+  const { me } = useSelector(state => state.user);
 
   return (
     <div className="layout-container">

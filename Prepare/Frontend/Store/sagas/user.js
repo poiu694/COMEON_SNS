@@ -17,7 +17,7 @@ import {
   UNFOLLOW_FAILURE,
   UNFOLLOW_REQUEST,
   UNFOLLOW_SUCCESS,
-} from "../type";
+} from "../reducers/user";
 
 function logInAPI(data) {
   return axios.post("/api/login", data);

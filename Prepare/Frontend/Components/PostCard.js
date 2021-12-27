@@ -78,7 +78,7 @@ const PostCard = ({ post }) => {
                 {id && post.UserId === id ? (
                   <>
                     <Button>수정</Button>
-                    <Button type="danger">삭제</Button>
+                    <Button type="danger" loading={removePostLoading} onClick={handleRemovePost} >삭제</Button>
                   </>
                 ) : (
                   <Button>신고</Button>
